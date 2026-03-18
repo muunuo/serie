@@ -13,6 +13,12 @@ const pool = mysql.createPool({ // trengs grunnet bruk av Maria.db.
   multipleStatements: true //tillater flere statments samtidig (ai)
 });
 
+/*
+-------------------------------
+    MIDDLEWARE
+-------------------------------
+*/
+
 pool.query(`
 CREATE TABLE IF NOT EXISTS bruker (
     bruker_id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -54,8 +60,19 @@ CREATE TABLE IF NOT EXISTS status_serie (
 );
 `);
 
+app.use(express.static('public')); //lar deg hente filer fra public
+app.use(express.json());
+// app.use(express.urlencoded({ extended: true}));
+
+function kravInnlogging(req, res, next) {
+  if (!req.session.bruker) {
+    return res.redirect("/");
+  }
+  next();
+}
+
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 }); 
 
 app.get('/data', async (req, res) => {
