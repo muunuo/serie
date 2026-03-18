@@ -10,7 +10,6 @@ const pool = mysql.createPool({ // trengs grunnet bruk av Maria.db.
   password: 'root',
   database: 'serie',
   connectionLimit: 5,
-  multipleStatements: true //tillater flere statments samtidig (ai)
 });
 
 pool.query(`
