@@ -7,7 +7,7 @@ const pool = mysql.createPool({ // trengs grunnet bruk av Maria.db.
   host: '127.0.0.1',
   port: 3306,
   user: 'root',
-  password: 'AS9753ur',
+  password: 'root',
   database: 'serie',
   connectionLimit: 5,
   multipleStatements: true //tillater flere statments samtidig (ai)
