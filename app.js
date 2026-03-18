@@ -7,13 +7,13 @@ const pool = mysql.createPool({ // trengs grunnet bruk av Maria.db.
   host: '127.0.0.1',
   port: 3306,
   user: 'root',
-  password: 'root',
+  password: 'AS9753ur',
   database: 'serie',
   connectionLimit: 5,
   multipleStatements: true //tillater flere statments samtidig (ai)
 });
 
-pool.execute(`
+pool.query(`
 CREATE TABLE IF NOT EXISTS bruker (
     bruker_id INTEGER PRIMARY KEY AUTO_INCREMENT,
     brukernavn TEXT UNIQUE,

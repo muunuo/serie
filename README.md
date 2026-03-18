@@ -15,7 +15,7 @@ Last updated 11.03.2026 (european calader)
 - [Contributors](#contributors)
 
 ## Development Status 
-The project is in active development, but do to this being version 2.0 it has not gotten far into development, still being in the planing, and documenting face. Coding will soon begin.
+The project is in active development, but do to this being version 2.0 it has not gotten far into development, still being in the planing, and documenting phase. Coding will soon begin.
 
 **Current Progress:**
 - Core functionality: 0% ✅
@@ -119,7 +119,7 @@ None
 
    #### Important ⚠️
    - ⬜ Hashing passwords
-   - ⬜ Private mens users can't access it
+   - ⬜ Private means users can't access it
    - ⬜ Users can't change the id in the serchbare to access others account
    #### User 🧌
 - ⬜ User can make an account that includes a:
