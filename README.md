@@ -14,6 +14,15 @@ Last updated 11.03.2026 (european calader)
 - [Project Structure](#project-structure)
 - [Contributors](#contributors)
 
+## Standerds
+This code is made for me to lear how to code, do to this it will use words from my native language (Norwigan) for varibles. This is to avoide mixing varibles and other things. 
+
+I do have a cheat sheat at the bottom of each document with the norwigan words used, and there english menings.
+
+I hope to later translate the norwigen to english, but will not be doing this now to avoid confusion for myself.
+
+Fell free to contribute using only english, but i will maby have to ask some more questions.
+
 ## Development Status 
 The project is in active development, but do to this being version 2.0 it has not gotten far into development, still being in the planing, and documenting phase. Coding will soon begin.
 
@@ -149,7 +158,13 @@ None
   - ◽Shows they have watched
   - ◽Shows they are watching
   - ◽Shows they want to watch 
-- ⬜ Get more info on a show by clicking it
+- ⬜ Get more info on a show by clicking 
+- ⬜ Translate all code to english
+  - ◽Public
+  - ◽Private
+  - ◽app.js
+  - ◽database
+
 
 ### Future Ideas 💡
 These are things that I can't impliment for the time being do to either my current skillsett or just lack of time.

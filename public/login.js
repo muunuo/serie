@@ -1,19 +1,33 @@
-var f = document.createElement("form");
-f.setAttribute('method',"post");
-f.setAttribute('action',"submit.php");
+var skjema = document.createElement("form");
+skjema.setAttribute('method',"POST");
+skjema.setAttribute('action',"/createUser_");
 
-var i = document.createElement("input"); //input element, text
-i.setAttribute('type',"text");
-i.setAttribute('name',"username");
+var brukernavn = document.createElement("input"); //input element, text
+brukernavn.setAttribute('type',"text");
+brukernavn.setAttribute('name',"brukernavn");
 
-var s = document.createElement("input"); //input element, Submit button
-s.setAttribute('type',"submit");
-s.setAttribute('value',"Submit");
+var passord = document.createElement("input"); //input element, text
+passord.setAttribute('type',"text");
+passord.setAttribute('name',"passord");
 
-f.appendChild(i);
-f.appendChild(s);
+var kallenavn = document.createElement("input"); //input element, text
+kallenavn.setAttribute('type',"text");
+kallenavn.setAttribute('name',"kallenavn");
 
-//and some more input elements here
-//and dont forget to add a submit button
+var send = document.createElement("input"); //input element, Submit button
+send.setAttribute('type',"submit");
+send.setAttribute('value',"submit");
 
-document.getElementsByTagName('body')[0].appendChild(f);
+skjema.appendChild(brukernavn);
+skjema.appendChild(passord);
+skjema.appendChild(send);
+
+document.getElementsByTagName('body')[0].appendChild(form);
+
+/*
+brukernavn = username
+passord = password
+kallenavn = nickname 
+skjema = form
+send = submitt
+*/
