@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS status_serie (
 
 app.use(express.static('public')); //Allows you to get files from public
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true}));
 
 function requireLogin_(req, res, next) {
   if (!req.session.bruker) {
@@ -75,9 +75,9 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 }); 
 
-app.get('/data', async (req, res) => {
+app.get('/user', async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM serie');
+    const [rows] = await pool.query('SELECT * FROM bruker');
     console.log(rows);
     res.json(rows);
   } catch (err) {
@@ -87,18 +87,19 @@ app.get('/data', async (req, res) => {
 });
 
 app.post('/createUser_', async (req, res) => {
-  const { brukernavn, passord, kallenavn } = req.body;
+  const { username_, password_, nickname_ } = req.body;
 
-  const eksisterer = pool.prepare('SELECT * FROM bruker WHERE brukernavn = ?').get(brukernavn);
-  if (eksisterer) {
+  const [rows_] = await pool.query('SELECT * FROM bruker WHERE brukernavn = ?', [username_]); //rows_ checks if the username is taken or free. the [] is because it is checking multiple rows. (maria.db exlusiv)
+  if (rows_.length > 0) {
     return res.status(400).json({ message: "Brukernavn eksisterer allerede. Velg et annet brukernavn."});
   }
 
-  try {
-    const stmt = pool.prepare('INSERT INTO bruker (brukernavn, passord, kallenavn) VALUES (?, ?, ?)'); //sier hvor de nye verdiene skal settes inn
-    const settInn = stmt.run(brukernavn, passord, kallenavn); //setter brukernavn, passord og kallenavn inn i tabellen
-  
-    res.status(201).json({ message: "Konto opprettet!", id: settInn.lastInsertRowid});
+    try {
+    const [result] = await pool.execute( //it is again using multiple rows, so it uses []. 
+      'INSERT INTO bruker (brukernavn, passord, kallenavn) VALUES (?, ?, ?)', 
+      [username_, password_, nickname_] // insted of run and get you just use a comma and [] to send quarys to the database. 
+    );
+    res.status(201).json({ message: "Konto opprettet!", id: result.insertId });
   } catch (error){
     console.log(error);
     res.status(500).json({message: "Feil med inlogging"});

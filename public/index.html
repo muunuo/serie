@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LogInnPage</title>
-    <script src="login.js" defer></script>
 </head>
 <body>
-    
+    <form method="POST" action="/createUser_">
+        <label for="username_">Username</label>
+        <input placeholder="user" required type="text" name="username_" id="username_">
+        <label for="password_">Password</label>
+        <input placeholder="Password01" required type="password" name="password_" id="password_">
+        <label for="nickname_">Nickname</label>
+        <input placeholder="nickname" required type="text" name="nickname_" id="nickname_">
+        <button type="submit" name="register_" id="register_">Create Account</button>
+    </form>
 </body>
 </html>
