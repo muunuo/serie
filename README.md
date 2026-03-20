@@ -1,7 +1,7 @@
 # serie
 versjon 2 av show reposetory. Bygget mer tankefull og med en økt forståelse av hvordan databaser fungerer.
 
-Last updated 11.03.2026 (european calader)
+Last updated 20.03.2026 (european calader)
 # Rec-Watch 📺
 
 ***Rec-Watch*** is made to allow friend groups to recommend, and recive recommendations from eatch other, as well as letting users track what shows they have, want to, and are watching themself. 
@@ -15,13 +15,11 @@ Last updated 11.03.2026 (european calader)
 - [Contributors](#contributors)
 
 ## Standerds
-This code is made for me to lear how to code, do to this it will use words from my native language (Norwigan) for varibles. This is to avoide mixing varibles and other things. 
+I am still learining code, so to reduce confusion, and force myself to learn som new stuff, all varibles made by me vill end in a underscore_
 
-I do have a cheat sheat at the bottom of each document with the norwigan words used, and there english menings.
+If you see any varibles missing a underscore, feel free to fix them.
 
-I hope to later translate the norwigen to english, but will not be doing this now to avoid confusion for myself.
-
-Fell free to contribute using only english, but i will maby have to ask some more questions.
+This might seem silly or stupid, but i find it helpfull, and therfor ask any contributers to also stick to said standerd.
 
 ## Development Status 
 The project is in active development, but do to this being version 2.0 it has not gotten far into development, still being in the planing, and documenting phase. Coding will soon begin.
@@ -116,13 +114,16 @@ The design is yet to be determend, but will likely match the old one quite close
 
 ## Kode 
 
-The code is yet to be made.
+This time I am coding with Maria.db for the first time, insted of using SQLite. This is to (hopefully) learn how to use a program that has different requierments. It is also do to me hoping to have a server later where this website can sit, and Maria.db works (from my understanding) better for that.
 
 
 ## Features💡
 ### Implemented ✅
 
-None
+- ✅ User can make an account that includes a:
+  - ✅username
+  - ✅password
+  - ✅nickname
 
 ### To Be Implemented 🚧
 
@@ -131,10 +132,7 @@ None
    - ⬜ Private means users can't access it
    - ⬜ Users can't change the id in the serchbare to access others account
    #### User 🧌
-- ⬜ User can make an account that includes a:
-  - ◽username
-  - ◽password
-  - ◽nickname
+- ⬜ User can acces a alredy exicting account
 - ⬜  User has a "Home" page/ landing site that only they can access.
 - ⬜ Adding friends/friends list
 - ⬜ Profile picture and bio
@@ -160,9 +158,9 @@ None
   - ◽Shows they want to watch 
 - ⬜ Get more info on a show by clicking 
 - ⬜ Translate all code to english
-  - ◽Public
-  - ◽Private
-  - ◽app.js
+  - ✅Public
+  - ✅Private
+  - ✅app.js
   - ◽database
 
 
