@@ -23,6 +23,12 @@ const pool = mysql.createPool({ // trengs grunnet bruk av Maria.db.
   connectionLimit: 5,
 });
 
+/*
+-------------------------------
+    MIDDLEWARE
+-------------------------------
+*/
+
 pool.query(`
 CREATE TABLE IF NOT EXISTS bruker (
     bruker_id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -64,13 +70,24 @@ CREATE TABLE IF NOT EXISTS status_serie (
 );
 `);
 
+app.use(express.static('public')); //Allows you to get files from public
+app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
+
+function requireLogin_(req, res, next) {
+  if (!req.session.bruker) {
+    return res.redirect("/");
+  }
+  next();
+}
+
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 }); 
 
-app.get('/data', async (req, res) => {
+app.get('/user', async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM serie');
+    const [rows] = await pool.query('SELECT * FROM bruker');
     console.log(rows);
     res.json(rows);
   } catch (err) {
@@ -79,6 +96,38 @@ app.get('/data', async (req, res) => {
   }
 });
 
+app.post('/createUser_', async (req, res) => {
+  const { username_, password_, nickname_ } = req.body;
+
+  const [rows_] = await pool.query('SELECT * FROM bruker WHERE brukernavn = ?', [username_]); //rows_ checks if the username is taken or free. the [] is because it is checking multiple rows. (maria.db exlusiv)
+  if (rows_.length > 0) {
+    return res.status(400).json({ message: "Brukernavn eksisterer allerede. Velg et annet brukernavn."});
+  }
+
+    try {
+    const [result] = await pool.execute( //it is again using multiple rows, so it uses []. 
+      'INSERT INTO bruker (brukernavn, passord, kallenavn) VALUES (?, ?, ?)', 
+      [username_, password_, nickname_] // insted of run and get you just use a comma and [] to send quarys to the database. 
+    );
+    res.status(201).json({ message: "Konto opprettet!", id: result.insertId });
+  } catch (error){
+    console.log(error);
+    res.status(500).json({message: "Feil med inlogging"});
+  }
+});
+
 app.listen(port, () => {
   console.log(`website running at http://localhost:${port}`);
 });
+
+/*
+brukernavn = username
+passord = password
+kallenavn = nickname 
+skjema = form
+send = submitt
+
+Changed to english:
+kravInlogging = requireLogin_
+opprettBruker = createUser_
+*/
