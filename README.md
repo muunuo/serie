@@ -107,13 +107,15 @@ The design is yet to be determend, but will likely match the old one quite close
 
 ## Kode 
 
-The code is yet to be made.
-
+This time I am coding with Maria.db for the first time, insted of using SQLite. This is to (hopefully) learn how to use a program that has different requierments. It is also do to me hoping to have a server later where this website can sit, and Maria.db works (from my understanding) better for that.
 
 ## Features💡
 ### Implemented ✅
 
-None
+- ✅ User can make an account that includes a:
+  - ✅username
+  - ✅password
+  - ✅nickname
 
 ### To Be Implemented 🚧
 
@@ -122,10 +124,7 @@ None
    - ⬜ Private means users can't access it
    - ⬜ Users can't change the id in the serchbare to access others account
    #### User 🧌
-- ⬜ User can make an account that includes a:
-  - ◽username
-  - ◽password
-  - ◽nickname
+- ⬜ User can logg into an already registerd account
 - ⬜  User has a "Home" page/ landing site that only they can access.
 - ⬜ Adding friends/friends list
 - ⬜ Profile picture and bio
@@ -150,6 +149,13 @@ None
   - ◽Shows they are watching
   - ◽Shows they want to watch 
 - ⬜ Get more info on a show by clicking it
+
+  #### Other
+- ⬜ Translate all code to english 
+  - ✅Private
+  - ✅Public
+  - ✅app.js
+  - ◽Database
 
 ### Future Ideas 💡
 These are things that I can't impliment for the time being do to either my current skillsett or just lack of time.

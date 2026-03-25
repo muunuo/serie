@@ -1,5 +1,16 @@
+/* 
+Done:
+1. Registering a new user into a database
+
+Working on:
+1. Hashing passwords
+2. Users being able to acess a landing page
+3. Users having to log inn to access said landing page 
+*/
+
 const express = require('express');
 const mysql = require('mysql2/promise'); // trengs grunnet bruk av Maria.db. Lastes ned som mysql2
+const bcrypt = require("bcrypt"); //to be able to protect passwords
 const app = express();
 const port = 3000; // Hvilken port det åpned 
 
