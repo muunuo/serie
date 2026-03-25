@@ -164,6 +164,13 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
   - ◽database
 
 
+  #### Other
+- ⬜ Translate all code to english 
+  - ✅Private
+  - ✅Public
+  - ✅app.js
+  - ◽Database
+
 ### Future Ideas 💡
 These are things that I can't impliment for the time being do to either my current skillsett or just lack of time.
 * A show API so users don't have to manuely register shows.
