@@ -1,6 +1,27 @@
 {
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "mysql2": "^3.19.1"
-  }
+  },
+  "name": "serie",
+  "version": "1.0.0",
+  "description": "versjon 2 av show reposetory. Bygget mer tankefull og med en økt forståelse av hvordan databaser fungerer.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muunuo/serie.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/muunuo/serie/issues"
+  },
+  "homepage": "https://github.com/muunuo/serie#readme"
 }

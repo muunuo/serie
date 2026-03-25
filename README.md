@@ -165,9 +165,8 @@ These are things that I can't impliment for the time being do to either my curre
 ## Technology
 
 - **Backend:** Node.js, Express.js
-- **Database:** SQLite 
+- **Database:** Maria.db
 - **Frontend:** HTML, CSS, JavaScript
-
 
 ## Project Structure
 
