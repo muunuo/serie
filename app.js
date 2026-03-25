@@ -142,3 +142,15 @@ app.post('/createUser_', async (req, res) => {
 app.listen(port, () => {
   console.log(`website running at http://localhost:${port}`);
 });
+
+/*
+brukernavn = username
+passord = password
+kallenavn = nickname 
+skjema = form
+send = submitt
+
+Changed to english:
+kravInlogging = requireLogin_
+opprettBruker = createUser_
+*/
