@@ -120,9 +120,9 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
 ### To Be Implemented 🚧
 
    #### Important ⚠️
-   - ⬜ Hashing passwords
-   - ⬜ Private means users can't access it
-   - ⬜ Users can't change the id in the serchbare to access others account
+ - ⬜ Hashing passwords
+ - ⬜ Private means users can't access it
+ - ⬜ Users can't change the id in the serchbare to access others account
    #### User 🧌
 - ⬜ User can logg into an already registerd account
 - ⬜  User has a "Home" page/ landing site that only they can access.
