@@ -128,9 +128,9 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
 ### To Be Implemented 🚧
 
    #### Important ⚠️
-   - ⬜ Hashing passwords
-   - ⬜ Private means users can't access it
-   - ⬜ Users can't change the id in the serchbare to access others account
+ - ⬜ Hashing passwords
+ - ⬜ Private means users can't access it
+ - ⬜ Users can't change the id in the serchbare to access others account
    #### User 🧌
 - ⬜ User can acces a alredy exicting account
 - ⬜  User has a "Home" page/ landing site that only they can access.
@@ -179,9 +179,8 @@ These are things that I can't impliment for the time being do to either my curre
 ## Technology
 
 - **Backend:** Node.js, Express.js
-- **Database:** SQLite 
+- **Database:** Maria.db
 - **Frontend:** HTML, CSS, JavaScript
-
 
 ## Project Structure
 
