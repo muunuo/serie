@@ -9,18 +9,21 @@ Working on:
 */
 
 const express = require('express');
-const mysql = require('mysql2/promise'); // trengs grunnet bruk av Maria.db. Lastes ned som mysql2
-const bcrypt = require("bcrypt"); //to be able to protect passwords
+const mysql = require('mysql2/promise'); // needed do to using mariadb, download using 'mysql2'
+const bcrypt = require('bcrypt'); //to be able to protect passwords
+const session = require('express-session');
 const app = express();
-const port = 3000; // Hvilken port det åpned 
+const port = 3000; // What port is in use
 
-const pool = mysql.createPool({ // trengs grunnet bruk av Maria.db.
+
+const pool = mysql.createPool({ // needed do to using mariadb
   host: '127.0.0.1',
   port: 3306,
   user: 'root',
   password: 'root',
   database: 'serie',
   connectionLimit: 5,
+  multipleStatements: true,
 });
 
 /*
@@ -28,6 +31,13 @@ const pool = mysql.createPool({ // trengs grunnet bruk av Maria.db.
     MIDDLEWARE
 -------------------------------
 */
+
+app.use(express.static('public')); //Middleware to serv static files from public
+app.use(express.json()); //middleware for parse JSON from request body
+// app.use(express.urlencoded({extended: true})); //allows you to get info from the search bar
+
+const path = require('path'); //handles the file paths
+// const { session } = require('inspector'); //idk where this came from??
 
 pool.query(`
 CREATE TABLE IF NOT EXISTS bruker (
@@ -70,10 +80,23 @@ CREATE TABLE IF NOT EXISTS status_serie (
 );
 `);
 
-app.use(express.static('public')); //Allows you to get files from public
-app.use(express.json());
-app.use(express.urlencoded({ extended: true}));
+app.use(
+  session({
+    secret: "secretKey", //incrypt the session-ID (make sure to change)
+    resave: false, // Won't save a unchanged session
+    saveUninitialized: false, // Won't save a empty session
+    cookie: {
+      secure: false, // change to 'true' if using https
+      maxAge: 1000 * 60 * 60 // session expier after 1 houre 
+    }
+  })
+);
 
+/* 
+-------------------------------
+    DATABASE
+-------------------------------
+*/
 function requireLogin_(req, res, next) {
   if (!req.session.bruker) {
     return res.redirect("/");
@@ -81,10 +104,10 @@ function requireLogin_(req, res, next) {
   next();
 }
 
+//Shows the index file from inside the public folder (remove later?)
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 }); 
-
 app.get('/user', async (req, res) => {
   try {
     const [rows] = await pool.query('SELECT * FROM bruker');
