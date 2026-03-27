@@ -3,6 +3,9 @@ Done:
 1. Registering a new user into a database
 
 Working on:
+SE OVER KODEN: du hadde problemer med merging forige gang, og det var derfor noe feilkode som snek seg inn. 
+Se på dette første ting neste gang 
+
 1. Hashing passwords
 2. Users being able to acess a landing page
 3. Users having to log inn to access said landing page 
@@ -34,7 +37,8 @@ const pool = mysql.createPool({ // needed do to using mariadb
 
 app.use(express.static('public')); //Middleware to serv static files from public
 app.use(express.json()); //middleware for parse JSON from request body
-// app.use(express.urlencoded({extended: true})); //allows you to get info from the search bar
+app.use(express.urlencoded({extended: true})); //DO NOT REMOVE!!! allows you to get info from the search bar
+
 
 const path = require('path'); //handles the file paths
 // const { session } = require('inspector'); //idk where this came from??
@@ -97,6 +101,7 @@ app.use(
     DATABASE
 -------------------------------
 */
+
 function requireLogin_(req, res, next) {
   if (!req.session.bruker) {
     return res.redirect("/");
@@ -104,10 +109,13 @@ function requireLogin_(req, res, next) {
   next();
 }
 
+app.use('/private', requireLogin_, express.static(path.join(__dirname, 'private')));
+
 //Shows the index file from inside the public folder (remove later?)
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 }); 
+
 app.get('/user', async (req, res) => {
   try {
     const [rows] = await pool.query('SELECT * FROM bruker');
@@ -120,6 +128,8 @@ app.get('/user', async (req, res) => {
 });
 
 app.post('/createUser_', async (req, res) => {
+  
+  console.log(req.body);
   const { username_, password_, nickname_ } = req.body;
 
   const [rows_] = await pool.query('SELECT * FROM bruker WHERE brukernavn = ?', [username_]); //rows_ checks if the username is taken or free. the [] is because it is checking multiple rows. (maria.db exlusiv)
@@ -128,11 +138,11 @@ app.post('/createUser_', async (req, res) => {
   }
 
     try {
-    const [result] = await pool.execute( //it is again using multiple rows, so it uses []. 
+    const [result_] = await pool.execute( //it is again using multiple rows, so it uses []. (Use Query or execute--?)
       'INSERT INTO bruker (brukernavn, passord, kallenavn) VALUES (?, ?, ?)', 
       [username_, password_, nickname_] // insted of run and get you just use a comma and [] to send quarys to the database. 
     );
-    res.status(201).json({ message: "Konto opprettet!", id: result.insertId });
+    res.status(201).json({ message: "Konto opprettet!", id: result_.insertId });
   } catch (error){
     console.log(error);
     res.status(500).json({message: "Feil med inlogging"});
