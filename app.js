@@ -134,18 +134,21 @@ app.post('/createUser_', async (req, res) => {
 
   const [rows_] = await pool.query('SELECT * FROM bruker WHERE brukernavn = ?', [username_]); //rows_ checks if the username is taken or free. the [] is because it is checking multiple rows. (maria.db exlusiv)
   if (rows_.length > 0) {
-    return res.status(400).json({ message: "Brukernavn eksisterer allerede. Velg et annet brukernavn."});
+    return res.status(400).json({ message: "A user with this username alredy exist. Please select a different username"});
   }
 
-    try {
-    const [result_] = await pool.execute( //it is again using multiple rows, so it uses []. (Use Query or execute--?)
+  try {
+    const saltRounds_ = 10;
+    const hashPassword_ = await bcrypt.hash(password_, saltRounds_);
+    const [stmt_] = await pool.execute( //it is again using multiple rows, so it uses []. (Use Query or execute--?)
       'INSERT INTO bruker (brukernavn, passord, kallenavn) VALUES (?, ?, ?)', 
-      [username_, password_, nickname_] // insted of run and get you just use a comma and [] to send quarys to the database. 
+      [username_, hashPassword_, nickname_] // insted of run and get you just use a comma and [] to send quarys to the database. 
     );
-    res.status(201).json({ message: "Konto opprettet!", id: result_.insertId });
+    res.status(201).json({ message: "New user added", id: stmt_.insertId });
+
   } catch (error){
     console.log(error);
-    res.status(500).json({message: "Feil med inlogging"});
+    res.status(500).json({message: "There was a problem with loging in. Please try again."});
   }
 });
 
