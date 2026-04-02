@@ -6,7 +6,6 @@ Working on:
 SE OVER KODEN: du hadde problemer med merging forige gang, og det var derfor noe feilkode som snek seg inn. 
 Se på dette første ting neste gang 
 
-1. Hashing passwords
 2. Users being able to acess a landing page
 3. Users having to log inn to access said landing page 
 */
@@ -92,9 +91,10 @@ app.use(
     cookie: {
       secure: false, // change to 'true' if using https
       maxAge: 1000 * 60 * 60 // session expier after 1 houre 
-    }
+    },
   })
 );
+
 
 /* 
 -------------------------------
@@ -103,29 +103,29 @@ app.use(
 */
 
 function requireLogin_(req, res, next) {
-  if (!req.session.bruker) {
+  if (!req.session.sessionUser_) {
     return res.redirect("/");
   }
   next();
 }
 
-app.use('/private', requireLogin_, express.static(path.join(__dirname, 'private')));
+app.use('/private', requireLogin_, express.static(path.join(__dirname, "private")));
 
 //Shows the index file from inside the public folder (remove later?)
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 }); 
 
-app.get('/user', async (req, res) => {
-  try {
-    const [rows] = await pool.query('SELECT * FROM bruker');
-    console.log(rows);
-    res.json(rows);
-  } catch (err) {
-    console.error('Database error:', err);
-    res.status(500).json({ error: 'Failed to fetch data from serie_database_1.serie' });
-  }
-});
+// app.get('/user', async (req, res) => {
+//   try {
+//     const [rows] = await pool.query('SELECT * FROM bruker');
+//     console.log(rows);
+//     res.json(rows);
+//   } catch (err) {
+//     console.error('Database error:', err);
+//     res.status(500).json({ error: 'Failed to fetch data from serie_database_1.serie' });
+//   }
+// });
 
 app.post('/createUser_', async (req, res) => {
   
@@ -152,18 +152,40 @@ app.post('/createUser_', async (req, res) => {
   }
 });
 
+// app.get("/dashboard", (req, res) => {
+//   res.render("dashboard.html")
+// });
+
+app.post('/login_', async (req, res) => {
+  const {inUsername_, inPassword_} = req.body; // retrieves what user puts in form 
+
+  const [users_] = await pool.query('SELECT * FROM bruker WHERE brukernavn = ?', [inUsername_]); // checks if there is a matching username
+  if (users_.length === 0) { // if there is not then user gets an invalid
+    return res.status(401).json({ message: "Invalid username or password" });
+  }
+
+  const user_ = users_[0]; //to avoid having to write [0] evry time (checks if empty)
+  const passwordMatch_ = await bcrypt.compare(inPassword_, user_.passord) //
+if (!passwordMatch_) {
+    return res.status(401).json({ message: "Invalid username or password" });
+  }
+  req.session.sessionUser_ = {
+  username_ : user_.brukernavn,
+  nickname_ : user_.kallenavn
+};
+  return res.redirect(`/private/dashboard.html`);
+
+});
+
+// //successful login
+
+
+/*
+-------------------------------
+    PORT
+-------------------------------
+*/
+
 app.listen(port, () => {
   console.log(`website running at http://localhost:${port}`);
 });
-
-/*
-brukernavn = username
-passord = password
-kallenavn = nickname 
-skjema = form
-send = submitt
-
-Changed to english:
-kravInlogging = requireLogin_
-opprettBruker = createUser_
-*/

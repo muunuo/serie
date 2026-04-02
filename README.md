@@ -13,6 +13,7 @@ Last updated 20.03.2026 (european calader)
 - [Technology](#technology)
 - [Project Structure](#project-structure)
 - [Contributors](#contributors)
+- [Sources](#Sources)
 
 ## Standerds
 I am still learining code, so to reduce confusion, and force myself to learn som new stuff, all varibles made by me vill end in a underscore_
@@ -119,32 +120,39 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
 
 ## Features💡
 ### Implemented ✅
+   #### Important ⚠️
+- ✅ Hashing passwords
 
+   #### User 🧌
 - ✅ User can make an account that includes a:
   - ✅username
   - ✅password
   - ✅nickname
+- ✅ User can acces a alredy exicting account
+
+   #### Website 🖥️
+- ✅ User cannot access the landing page without an account.
 
 ### To Be Implemented 🚧
 
    #### Important ⚠️
- - ⬜ Hashing passwords
- - ⬜ Private means users can't access it
+ - ⬜ Users can't access the 'Private' folder
  - ⬜ Users can't change the id in the serchbare to access others account
+
    #### User 🧌
-- ⬜ User can acces a alredy exicting account
 - ⬜  User has a "Home" page/ landing site that only they can access.
 - ⬜ Adding friends/friends list
 - ⬜ Profile picture and bio
 
    #### Website 🖥️
-- ⬜ User cannot access the landing page without an account.
 - ⬜ The landing page has all registerd shows
 - ⬜ Username visible at the top
+- ⬜ Try to break in to private without an account 
 
    #### Show 📺
 - ⬜ User can register shows
-  - ◽With a picture 
+  - ◽With pictures
+  - ◽Can give shows rewiews
 - ⬜ User can see all registered shows 
 - ⬜ User can with recommendations:
   - ◽ Send them
@@ -157,14 +165,9 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
   - ◽Shows they are watching
   - ◽Shows they want to watch 
 - ⬜ Get more info on a show by clicking 
-- ⬜ Translate all code to english
-  - ✅Public
-  - ✅Private
-  - ✅app.js
-  - ◽database
 
-
-  #### Other
+  #### Extra
+ - ⬜ There is no ID in the serchbar (having a cleaner URL) 
 - ⬜ Translate all code to english 
   - ✅Private
   - ✅Public
@@ -199,10 +202,20 @@ Thank you to the other students in my class who contributed to my website with t
 
 ## Author 
 
-Benny
+A large portion of the code is made by (me) 'Benny' also known as 'muunuo' on Github
 
-muunuo on Github
+I am curently a student in norway studying information technology (informasjonsteknologi) in high school (videregående skole)
 
 -----
 ***Last updated***
-- March 11th 2026
+- April 2nd 2026
+
+# Sources
+
+### Information
+Stensland, John Scott (2017) answer on "What is the most elegant way to restrict users from accessing other users' content?" https://stackoverflow.com/questions/41287766/what-is-the-most-elegant-way-to-restrict-users-from-accessing-other-users-conte gotten 27 March 2026
+
+### Code snippets
+niklhs (2021) answer on "managing sessions on login nodejs" https://stackoverflow.com/questions/65644966/managing-sessions-on-login-nodejs gotten 02 April 2026
+
+Hausnes, Jo Bjørnar (2026) "webutvikling" https://github.com/hausnes/webutvikling/tree/main gotten March 2026 
