@@ -183,8 +183,33 @@ if (!passwordMatch_) {
   return res.redirect(`/private/dashboard.html`);
 
 });
-
 // //successful login
+
+/*
+-------------------------------
+    SHOWS
+-------------------------------
+*/
+
+app.post('/createS', (req, res)=> { // oppretter en serie
+    const { serieNavn, serieBio, seriePlakat } = req.body;
+
+    try {
+        console.log(serieNavn, serieBio, seriePlakat)
+        const insert = db.prepare('INSERT INTO serie (navn, bio, plakat) VALUES (?, ?, ?)');
+        insert.run(serieNavn, serieBio, seriePlakat);
+    } catch (error) {
+        console.log(error);
+        res.send("serie ved opprettelse"); //sender meldingen om catch eller try blir trigget
+    }
+});
+
+app.get('/alleSerier', (req, res) => { //viser alle serier i serie.html
+    const serieListe = db.prepare('SELECT * FROM serie').all();
+
+    res.json(serieListe);
+    
+});
 
 /*
 -------------------------------

@@ -26,8 +26,8 @@ This might seem silly or stupid, but i find it helpfull, and therfor ask any con
 The project is in active development, but do to this being version 2.0 it has not gotten far into development, still being in the planing, and documenting phase. Coding will soon begin.
 
 **Current Progress:**
-- Core functionality: 0% ✅
-- Security features: 0% 🔒
+- Core functionality: 10% ✅
+- Security features: 20% 🔒
 - UI/UX polish: 0% 🎨
 
 ## Design and Planing 🎨 
@@ -138,6 +138,7 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
    #### Important ⚠️
  - ⬜ Users can't access the 'Private' folder
  - ⬜ Users can't change the id in the serchbare to access others account
+- ⬜ Transfer pins, secrets and API keys to an .env document for incresed saftey
 
    #### User 🧌
 - ⬜  User has a "Home" page/ landing site that only they can access.
@@ -165,6 +166,8 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
   - ◽Shows they are watching
   - ◽Shows they want to watch 
 - ⬜ Get more info on a show by clicking 
+- ⬜ Users able to search after shows based on id
+- ⬜ Users able to search after shows based on name of show
 
   #### Extra
  - ⬜ There is no ID in the serchbar (having a cleaner URL) 
@@ -173,6 +176,7 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
   - ✅Public
   - ✅app.js
   - ◽Database
+- ⬜ Adding a caching proxy for incresed staility
 
 ### Future Ideas 💡
 These are things that I can't impliment for the time being do to either my current skillsett or just lack of time.
