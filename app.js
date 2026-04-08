@@ -1,13 +1,20 @@
 /* 
 Done:
 1. Registering a new user into a database
+2. Users being able to acess a landing page
+3. Users having to log inn to access said landing page 
 
 Working on:
 SE OVER KODEN: du hadde problemer med merging forige gang, og det var derfor noe feilkode som snek seg inn. 
 Se på dette første ting neste gang 
 
-2. Users being able to acess a landing page
-3. Users having to log inn to access said landing page 
+4. each landing page being uniqe to a user (use nickname to test)
+5. Show BRANCH: show alle shows
+6. Show BRANCH: user able to register new shows
+7. User BRANCH: user able to assign status to shows
+8. User BRANCH: user able to see shows they register on their landing page
+9. rec BRANCH: user able to send recomondations
+10. rec BRANCH: user able to recive recomondations
 */
 
 const express = require('express');
@@ -116,16 +123,16 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 }); 
 
-// app.get('/user', async (req, res) => {
-//   try {
-//     const [rows] = await pool.query('SELECT * FROM bruker');
-//     console.log(rows);
-//     res.json(rows);
-//   } catch (err) {
-//     console.error('Database error:', err);
-//     res.status(500).json({ error: 'Failed to fetch data from serie_database_1.serie' });
-//   }
-// });
+app.get('/user', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM bruker');
+    console.log(rows);
+    res.json(rows);
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).json({ error: 'Failed to fetch data from serie_database_1.serie' });
+  }
+});
 
 app.post('/createUser_', async (req, res) => {
   
@@ -178,6 +185,20 @@ if (!passwordMatch_) {
 });
 
 // //successful login
+
+/*
+-------------------------------
+    SEND INFO TO FRONTEND
+-------------------------------
+*/
+
+app.get('/api/sessionUser', (req, res) => {
+  if (req.session.sessionUser_) {
+    res.json(req.session.sessionUser_);
+  } else {
+    res.status(401).json({ message: "Not logged in" });
+  }
+});
 
 
 /*
