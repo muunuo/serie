@@ -3,12 +3,12 @@ Done:
 1. Registering a new user into a database
 2. Users being able to acess a landing page
 3. Users having to log inn to access said landing page 
+4. each landing page being uniqe to a user (use nickname to test)
 
 Working on:
 SE OVER KODEN: du hadde problemer med merging forige gang, og det var derfor noe feilkode som snek seg inn. 
 Se på dette første ting neste gang 
 
-4. each landing page being uniqe to a user (use nickname to test)
 5. Show BRANCH: show alle shows
 6. Show BRANCH: user able to register new shows
 7. User BRANCH: user able to assign status to shows
@@ -23,9 +23,11 @@ const bcrypt = require('bcrypt'); //to be able to protect passwords
 const session = require('express-session');
 const app = express();
 const port = 3000; // What port is in use
+// require('dotenv').config();
 
+// const password = process.env.PASSWORD; //password is saved in a different file do to safty 
 
-const pool = mysql.createPool({ // needed do to using mariadb
+const pool = mysql.createPool({ // is needed do to me using mariadb
   host: '127.0.0.1',
   port: 3306,
   user: 'root',
@@ -34,6 +36,10 @@ const pool = mysql.createPool({ // needed do to using mariadb
   connectionLimit: 5,
   multipleStatements: true,
 });
+
+// app.get('/api/bearertoken', (req, res) => {
+//   res.json({ token: process.env.BEARERTOKEN });
+// });
 
 /*
 -------------------------------
