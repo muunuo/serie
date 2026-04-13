@@ -108,7 +108,6 @@ app.use(
   })
 );
 
-
 /* 
 -------------------------------
     DATABASE
@@ -230,7 +229,6 @@ app.get('/api/sessionUser', (req, res) => {
     res.status(401).json({ message: "Not logged in" });
   }
 });
-
 
 /*
 -------------------------------

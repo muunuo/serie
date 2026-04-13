@@ -27,35 +27,3 @@ async function getSomeData() {
 }
 
 getSomeData();
-
-
-
-
-// const APIkey = "7b53faa0-7329-4f8b-98fa-4fee362c1f10";
-// let show_; // user input is stored here.
-
-// api4.thetvdb.com/v4 /login
-
-
-// async function getShow_() {
-//     const res = await fetch('https://api.chucknorris.io/jokes/random');
-//     const data = await res.json();
-    
-//     // Tømmer sida for gamle vitsar
-//     document.querySelector("#vits").innerHTML = "";
-
-//     // Opprettar ein ny vits i ein paragraf
-//     let vits = document.createElement("p");
-//     vits.innerText = data.value;
-//     document.querySelector("#vits").appendChild(vits);
-    
-//     // Legg til eit bilete av Chuck Norris
-//     let bilde = document.createElement("img");
-//     bilde.src = data.icon_url;
-//     document.querySelector("#vits").appendChild(bilde);
-// }
-
-// hentVits(); // Slik at me får ein vits med ein gong me lastar sida
-
-// // Slik kan me hente ein vits kvar gong me trykker på ein knapp på tastaturet
-// document.body.addEventListener("keydown", hentVits);
