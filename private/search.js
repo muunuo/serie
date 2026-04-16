@@ -1,4 +1,7 @@
-// Working on: trying to make it so user can serch a id/name and get the show they want.
+/* 
+Working: Serch feature using the ID of the show gotten from tvdb
+Next: Change it so the user can search the name and get the shows with said name. 
+*/
 const search_ = document.getElementById('searchShow_');
 const input_ = document.getElementById('showName_');
 const submit_ = document.getElementById('submitSearch_');

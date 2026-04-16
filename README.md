@@ -122,6 +122,7 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
 ### Implemented ✅
    #### Important ⚠️
 - ✅ Hashing passwords
+- ✅ Users can't change the id in the serchbare to access others account
 
    #### User 🧌
 - ✅ User can make an account that includes a:
@@ -129,19 +130,24 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
   - ✅password
   - ✅nickname
 - ✅ User can acces a alredy exicting account
+- ✅  User has a "Home" page/ landing site that only they can access.
 
    #### Website 🖥️
 - ✅ User cannot access the landing page without an account.
 
+   #### Show 📺
+- ✅ Users able to search after shows based on id
+
+  #### Extra
+- ✅ There is no User ID in the serchbar (having a cleaner URL)
+
 ### To Be Implemented 🚧
 
    #### Important ⚠️
- - ⬜ Users can't access the 'Private' folder
- - ⬜ Users can't change the id in the serchbare to access others account
-- ⬜ Transfer pins, secrets and API keys to an .env document for incresed saftey
+- ⬜ Users can't access the 'Private' folder
+- ⬜ Transfer codes(pins), secrets and API keys to an .env document for incresed saftey
 
    #### User 🧌
-- ⬜  User has a "Home" page/ landing site that only they can access.
 - ⬜ Adding friends/friends list
 - ⬜ Profile picture and bio
 
@@ -154,7 +160,7 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
 - ⬜ User can register shows
   - ◽With pictures
   - ◽Can give shows rewiews
-- ⬜ User can see all registered shows 
+- ❌ User can see all registered shows on one page (Using api. Contains to many shows.)
 - ⬜ User can with recommendations:
   - ◽ Send them
   - ◽ Receive them
@@ -165,12 +171,11 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
   - ◽Shows they have watched
   - ◽Shows they are watching
   - ◽Shows they want to watch 
-- ⬜ Get more info on a show by clicking 
-- ⬜ Users able to search after shows based on id
+- ⬜ Get more info on a show by clicking on poster
 - ⬜ Users able to search after shows based on name of show
 
   #### Extra
- - ⬜ There is no ID in the serchbar (having a cleaner URL) 
+- ⬜ There is no show ID in the serchbar (having a cleaner URL) 
 - ⬜ Translate all code to english 
   - ✅Private
   - ✅Public
