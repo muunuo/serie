@@ -1,15 +1,19 @@
 // Working on: trying to make it so user can serch a id/name and get the show they want.
+const search_ = document.getElementById('searchShow_');
+const input_ = document.getElementById('showName_');
+const submit_ = document.getElementById('submitSearch_');
 
-let UserSearch_ = document.getElementById('searchForShow');
-let UserSearchShow_ = document.addEventListener('submit', UserSearch_);
+search_.addEventListener('submit', async (event) => {  
+    event.preventDefault(); // Prevents the page from reloading 
+    const showId_ = input_.value.trim();
 
-const SearchShow_ = document.getElementById('showName').value;
+    if (!showId_) return;
+    await displayShow_(showId_)
+});
 
-let showId = SearchShow_
-
-async function getShowData_(showId) {
+async function getShowData_(showId_) {
     const token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZ2UiOiIiLCJhcGlrZXkiOiI3YjUzZmFhMC03MzI5LTRmOGItOThmYS00ZmVlMzYyYzFmMTAiLCJjb21tdW5pdHlfc3VwcG9ydGVkIjpmYWxzZSwiZXhwIjoxNzc4NzA0MDgwLCJnZW5kZXIiOiIiLCJoaXRzX3Blcl9kYXkiOjEwMDAwMDAwMCwiaGl0c19wZXJfbW9udGgiOjEwMDAwMDAwMCwiaWQiOiIyOTg0MDU5IiwiaXNfbW9kIjpmYWxzZSwiaXNfc3lzdGVtX2tleSI6ZmFsc2UsImlzX3RydXN0ZWQiOmZhbHNlLCJwaW4iOm51bGwsInJvbGVzIjpbXSwidGVuYW50IjoidHZkYiIsInV1aWQiOiIifQ.e1qg4pc46lysJF0fq31_2vUulJZRPOXbLDzxpyI5nPF9OiYKrtlXV1LECsNPkxb8h18bryWte_eduikWwBfBE9tiY_n2__PpDS_FB7buct3ki32y6HUtX1AUDNIr6XvtpGjU0OjFvbnNd3Au9zGb5pZNdiqqY61QJzYEDSKXOtEM2Q-zSLxJ1tDcqBT3tM26nr8rNp-JoOB7yT6fYiTHl2JXvVyfrCq7GCWNVOPj9KbSFXHEtUQCifXki9bBVMMCYoLteVm1IKcWTYodeGN7AXYKhdsncRHxh9Rba7C78tdPsf-sgrxFrMlRnPGCqPVxjTdfyx56mpixW2IAPsJOPv6FxqJbyw5do9XURIhqAoPTyywtYTzt8xZcJ2HMmTo9sgMZJkw8U0ch_UQwY70qjZzZfHeLsG-IpDtmGfNNLAMfUz67YIklbJ-vjQKxOjdz86VUVooPE5YfWvp_IfHSEE9yLp5DwBctTrcD9SCF3gzvUbqIgA4h7Z3bxW9fnd3-6DRcfaU2pts01rL9vG4r-BnmJJCx090AYTTp-vVt80fDgE3QTwoooyyeBVn0CPH2lENIk1XFnWVxKcX2Nlaes5lFGRm0cZadPuMjKNs5D82GLqL4pNV7NLAxsr7MAUKycAU15iQCCONfcKElZjWs1EpIpKDTlOJwAoB0zeRZBDs";
-    const res = await fetch(`https://api4.thetvdb.com/v4/series/${showId}`, {
+    const res = await fetch(`https://api4.thetvdb.com/v4/series/${showId_}`, {
         headers: {
             'Authorization': 'Bearer ' + token
         }
@@ -20,13 +24,13 @@ async function getShowData_(showId) {
     return data;
 }
 
-async function displayShow_(showId) {
-    const show_ = await getShowData_(showId);
+async function displayShow_(showId_) {
+    const show_ = await getShowData_(showId_);
 
     const container_ = document.getElementById('series');
     container_.innerHTML = ""; // Clear previous content
 
-    // console.log("Your displayShow_ is:", show_);
+    console.log("Your displayShow_ is:", show_);
 
     const showData_ = show_.data
 
@@ -62,5 +66,5 @@ async function displayShow_(showId) {
 
 }
 
-displayShow_(100001);
-getShowData_(100001);
+// displayShow_();
+// getShowData_();

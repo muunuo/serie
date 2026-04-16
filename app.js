@@ -51,7 +51,6 @@ app.use(express.static('public')); //Middleware to serv static files from public
 app.use(express.json()); //middleware for parse JSON from request body
 app.use(express.urlencoded({extended: true})); //DO NOT REMOVE!!! allows you to get info from the search bar
 
-
 const path = require('path'); //handles the file paths
 // const { session } = require('inspector'); //idk where this came from??
 
