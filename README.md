@@ -137,6 +137,8 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
 
    #### Show 📺
 - ✅ Users able to search after shows based on id
+- ✅ Users able to search after shows based on name of show
+
 
   #### Extra
 - ✅ There is no User ID in the serchbar (having a cleaner URL)
@@ -172,7 +174,7 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
   - ◽Shows they are watching
   - ◽Shows they want to watch 
 - ⬜ Get more info on a show by clicking on poster
-- ⬜ Users able to search after shows based on name of show
+- ⬜ Show all shows with said name when searching 
 
   #### Extra
 - ⬜ There is no show ID in the serchbar (having a cleaner URL) 
@@ -182,6 +184,9 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
   - ✅app.js
   - ◽Database
 - ⬜ Adding a caching proxy for incresed staility
+
+   #### Fix 🛠
+- ⚠️ Shows with short ID's can not be searchd
 
 ### Future Ideas 💡
 These are things that I can't impliment for the time being do to either my current skillsett or just lack of time.

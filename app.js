@@ -163,10 +163,6 @@ app.post('/createUser_', async (req, res) => {
   }
 });
 
-// app.get("/dashboard", (req, res) => {
-//   res.render("dashboard.html")
-// });
-
 app.post('/login_', async (req, res) => {
   const {inUsername_, inPassword_} = req.body; // retrieves what user puts in form 
 
@@ -195,25 +191,29 @@ if (!passwordMatch_) {
 -------------------------------
 */
 
-app.post('/createS', (req, res)=> { // oppretter en serie
-    const { serieNavn, serieBio, seriePlakat } = req.body;
-
-    try {
-        console.log(serieNavn, serieBio, seriePlakat)
-        const insert = db.prepare('INSERT INTO serie (navn, bio, plakat) VALUES (?, ?, ?)');
-        insert.run(serieNavn, serieBio, seriePlakat);
-    } catch (error) {
-        console.log(error);
-        res.send("serie ved opprettelse"); //sender meldingen om catch eller try blir trigget
-    }
+app.post('/api/registerShowDB_', async (req, res)=> { // oppretter en serie
+  
+  const { showId_ } = req.body;
+  try {
+    const [result] = await pool.execute('INSERT INTO serie (serie_id) VALUES (?)', [showId_]);
+    res.json({ message: 'Show registered', id: result.insertId });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-app.get('/alleSerier', (req, res) => { //viser alle serier i serie.html
-    const serieListe = db.prepare('SELECT * FROM serie').all();
+// app.post('/createShow', (req, res)=> { // oppretter en serie
+//     const { serieNavn, serieBio, seriePlakat } = req.body;
 
-    res.json(serieListe);
-    
-});
+//     try {
+//         console.log(serieNavn, serieBio, seriePlakat)
+//         const insert = db.prepare('INSERT INTO serie (navn, bio, plakat) VALUES (?, ?, ?)');
+//         insert.run(serieNavn, serieBio, seriePlakat);
+//     } catch (error) {
+//         console.log(error);
+//         res.send("serie ved opprettelse"); //sender meldingen om catch eller try blir trigget
+//     }
+// });
 
 /*
 -------------------------------
