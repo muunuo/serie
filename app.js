@@ -5,12 +5,11 @@ Done:
 3. Users having to log inn to access said landing page 
 4. each landing page being uniqe to a user (use nickname to test)
 
-Working on:
-SE OVER KODEN: du hadde problemer med merging forige gang, og det var derfor noe feilkode som snek seg inn. 
-Se på dette første ting neste gang 
-
+No longer doing
 5. Show BRANCH: show alle shows
 6. Show BRANCH: user able to register new shows
+
+Working on:
 7. User BRANCH: user able to assign status to shows
 8. User BRANCH: user able to see shows they register on their landing page
 9. rec BRANCH: user able to send recomondations
@@ -25,17 +24,17 @@ const app = express();
 const port = 3000; // What port is in use
 // require('dotenv').config();
 
-// const password = process.env.PASSWORD; //password is saved in a different file do to safty 
-
-const pool = mysql.createPool({ // is needed do to me using mariadb
+const pool = mysql.createPool({ // used do to maria.db being used
   host: '127.0.0.1',
   port: 3306,
   user: 'root',
-  password: 'root',
+  password: 'root', //later: put in an env file for safty
   database: 'serie',
   connectionLimit: 5,
   multipleStatements: true,
 });
+
+// const password = process.env.PASSWORD; //password is saved in a different file do to safty 
 
 // app.get('/api/bearertoken', (req, res) => {
 //   res.json({ token: process.env.BEARERTOKEN });
@@ -52,8 +51,8 @@ app.use(express.json()); //middleware for parse JSON from request body
 app.use(express.urlencoded({extended: true})); //DO NOT REMOVE!!! allows you to get info from the search bar
 
 const path = require('path'); //handles the file paths
-// const { session } = require('inspector'); //idk where this came from??
 
+//if the database dose not exist. Create it ⤵
 pool.query(`
 CREATE TABLE IF NOT EXISTS bruker (
     bruker_id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -96,12 +95,12 @@ CREATE TABLE IF NOT EXISTS status_serie (
 `);
 
 app.use(
-  session({
-    secret: "secretKey", //incrypt the session-ID (make sure to change)
-    resave: false, // Won't save a unchanged session
+  session({ //to avoid having id in the url for safty and readability
+    secret: "secretKey", //incrypt the session-ID (move to an env file for safty)
+    resave: false, // Won't save a unchanged session (to avoid unaceserry saves)
     saveUninitialized: false, // Won't save a empty session
     cookie: {
-      secure: false, // change to 'true' if using https
+      secure: false, // using http whitch is not secure, and therfor is this sett to false. Change to 'true' if using https
       maxAge: 1000 * 60 * 60 // session expier after 1 houre 
     },
   })
@@ -113,77 +112,84 @@ app.use(
 -------------------------------
 */
 
-function requireLogin_(req, res, next) {
-  if (!req.session.sessionUser_) {
-    return res.redirect("/");
+/* ----------
+    Paths settup
+---------- */
+
+function requireLogin_(req, res, next) { //user must be logd in and have a session
+  if (!req.session.sessionUser_) {//if user dosn't have a session
+    return res.redirect("/"); //redirect to /index.html
   }
-  next();
+  next(); //if they are logd in, then let them continue
 }
 
-app.use('/private', requireLogin_, express.static(path.join(__dirname, "private")));
+//everything under /private requires user to be logd in ⤵
+app.use('/private', requireLogin_, express.static(path.join(__dirname, "private"))); 
 
-//Shows the index file from inside the public folder (remove later?)
+
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.sendFile(path.join(__dirname, "public", "index.html")); //sets where / takes user
 }); 
 
-app.get('/user', async (req, res) => {
-  try {
-    const [rows] = await pool.query('SELECT * FROM bruker');
-    console.log(rows);
-    res.json(rows);
-  } catch (err) {
-    console.error('Database error:', err);
-    res.status(500).json({ error: 'Failed to fetch data from serie_database_1.serie' });
-  }
-});
+/* ----------
+    Example route
+---------- */
 
-app.post('/createUser_', async (req, res) => {
-  
-  console.log(req.body);
-  const { username_, password_, nickname_ } = req.body;
+// app.get('/user', async (req, res) => { //example of a simple route where all users are shown
+//   try {
+//     const [rows] = await pool.query('SELECT * FROM bruker'); 
+//     console.log(rows);
+//     res.json(rows);
+//   } catch (err) {
+//     console.error('Database error:', err);
+//     res.status(500).json({ error: 'Failed to fetch data from serie_database_1.serie' });
+//   }
+// }); // search http://localhost:3000/user to see the info
+
+/* ----------
+    User creation and log in
+---------- */
+app.post('/createUser_', async (req, res) => { //adds new users to database
+  const { username_, password_, nickname_ } = req.body; //get the username, password and nickname from the form in index.html
 
   const [rows_] = await pool.query('SELECT * FROM bruker WHERE brukernavn = ?', [username_]); //rows_ checks if the username is taken or free. the [] is because it is checking multiple rows. (maria.db exlusiv)
-  if (rows_.length > 0) {
-    return res.status(400).json({ message: "A user with this username alredy exist. Please select a different username"});
+  if (rows_.length > 0) { //check if username is taken (if more then 0)
+    return res.status(400).json({ message: "A user with this username alredy exist. Please select a different username"}); //stops a different user from picking it
   }
 
   try {
-    const saltRounds_ = 10;
-    const hashPassword_ = await bcrypt.hash(password_, saltRounds_);
-    const [stmt_] = await pool.execute( //it is again using multiple rows, so it uses []. (Use Query or execute--?)
+    const saltRounds_ = 10; //inrypts the password using saltrounds
+    const hashPassword_ = await bcrypt.hash(password_, saltRounds_); //the hashPassword is the password that gets saved to the db
+    const [stmt_] = await pool.execute( //cheking multiple rows, so use []. (Query = get, execute = do)
       'INSERT INTO bruker (brukernavn, passord, kallenavn) VALUES (?, ?, ?)', 
-      [username_, hashPassword_, nickname_] // insted of run and get you just use a comma and [] to send quarys to the database. 
+      [username_, hashPassword_, nickname_] // Mariadb uses [varible] insted of run/get to send querys to/from database 
     );
-    res.status(201).json({ message: "New user added", id: stmt_.insertId });
-
-  } catch (error){
+    res.status(201).json({ message: "New user added", id: stmt_.insertId }); //lets user know they where added sucsesfully
+  } catch (error){ //if an error happens
     console.log(error);
-    res.status(500).json({message: "There was a problem with loging in. Please try again."});
+    res.status(500).json({message: "There was a problem with loging in. Please try again."}); //informs user of error
   }
 });
 
-app.post('/login_', async (req, res) => {
+app.post('/login_', async (req, res) => { //users woth an account can log in
   const {inUsername_, inPassword_} = req.body; // retrieves what user puts in form 
 
   const [users_] = await pool.query('SELECT * FROM bruker WHERE brukernavn = ?', [inUsername_]); // checks if there is a matching username
-  if (users_.length === 0) { // if there is not then user gets an invalid
+  if (users_.length === 0) { // if there is not then user cant log in
     return res.status(401).json({ message: "Invalid username or password" });
   }
-
-  const user_ = users_[0]; //to avoid having to write [0] evry time (checks if empty)
-  const passwordMatch_ = await bcrypt.compare(inPassword_, user_.passord) //
-if (!passwordMatch_) {
+  const user_ = users_[0]; //gets first user object (turns an array into an object)
+  const passwordMatch_ = await bcrypt.compare(inPassword_, user_.passord) //checks if the password matches the incrypted password
+if (!passwordMatch_) { //if they dont match, user can't log in
     return res.status(401).json({ message: "Invalid username or password" });
   }
-  req.session.sessionUser_ = {
+  req.session.sessionUser_ = { //if they do, get info for session
   username_ : user_.brukernavn,
-  nickname_ : user_.kallenavn
+  nickname_ : user_.kallenavn,
+  userId_ : user_.bruker_id
 };
-  return res.redirect(`/private/dashboard.html`);
-
+  return res.redirect(`/private/dashboard.html`); //send user to dashboard.html when logd in
 });
-// //successful login
 
 /*
 -------------------------------
@@ -191,41 +197,42 @@ if (!passwordMatch_) {
 -------------------------------
 */
 
-app.post('/api/registerShowDB_', async (req, res)=> { // oppretter en serie
+app.post('/api/registerShowDB_', async (req, res)=> { //registers a series to the database using id
   
-  const { searchName_ } = req.body;
+  const {seriesId_} = req.body; //info is gotten from the search.js file and sent here
   try {
-    const [result] = await pool.execute('INSERT INTO serie (serie_id) VALUES (?)', [searchName_]);
-    res.json({ message: 'Show registered', id: result.insertId });
+    //sends the id gotten in serch.js to the database⤵
+    const [seriesIdRes_] = await pool.execute('INSERT INTO serie (serie_id) VALUES (?)', [seriesId_]); 
+    res.json({ message: 'Show registered', id: seriesIdRes_.insertId });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-app.get('/status_', async (req, res) => { //show all shows with a status
-  try {
-    const [userShow_] = await pool.query('SELECT * FROM status_serie WHERE bruker_id = 1');
-    res.json(userShow_);
+/*
+-------------------------------
+    Series status
+-------------------------------
+*/
+
+app.get('/checkSeriesStaus_', async (req, res) => { //checks show status (watching, watchd, watch) on different user accounts
+  const userSession_ = 1; // req.session.sessionUser_.userId_; //gets id from session
+    try {
+    const [checkStatus_] = await pool.query( 
+      //get id from series and check up against status_series to see the status each user has given a show.⤵
+      `SELECT serie.*, status_serie.status 
+      FROM serie 
+      INNER JOIN status_serie 
+      ON serie.serie_id = status_serie.serie_id 
+      WHERE status_serie.bruker_id = ?`, 
+      [userSession_]); //the id is sat by the session
+    res.json(checkStatus_);
   } catch (err) {
-    console.error('Database error:', err);
+    console.error('Database error:', err); //if it fails, send an error
     res.status(500).json({ error: 'Failed to fetch data' });
   }
 });
 
-
-// app.get('/harSett/:id', (req, res) => { 
-//     const person = req.params.id;
-//     const sjekkStatus = db.prepare(`
-//         SELECT serieStatus.*, serie.*
-//         FROM serieStatus
-//         INNER JOIN serie ON serieStatus.idS = serie.idS 
-//         WHERE status = 'sett'
-//         AND serieStatus.idB = ?
-//         `).all(person)
-
-//     res.json(sjekkStatus)
-
-// });//Må søke opp: http://localhost:3000/harSett/18?status=sett
 
 /*
 -------------------------------
@@ -233,9 +240,9 @@ app.get('/status_', async (req, res) => { //show all shows with a status
 -------------------------------
 */
 
-app.get('/api/sessionUser', (req, res) => {
-  if (req.session.sessionUser_) {
-    res.json(req.session.sessionUser_);
+app.get('/api/sessionUser', (req, res) => { //sends username to frontend (user.js)
+  if (req.session.sessionUser_) { //gets username from session
+    res.json(req.session.sessionUser_); 
   } else {
     res.status(401).json({ message: "Not logged in" });
   }
@@ -247,6 +254,6 @@ app.get('/api/sessionUser', (req, res) => {
 -------------------------------
 */
 
-app.listen(port, () => {
+app.listen(port, () => { //starts up the server and says where to find it
   console.log(`website running at http://localhost:${port}`);
 });

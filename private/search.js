@@ -72,44 +72,43 @@ async function getShowData_(searchName_) {
 -------------------------------
 */
 
-async function displayShow_(searchName_) {
-    const show_ = await getShowData_(searchName_);
+async function displayShow_(seriesRes_) { //gets the series info from /series api search
+    const show_ = await getShowData_(seriesRes_); //wait untill said info arrives
 
-    const container_ = document.getElementById('series');
+    const container_ = document.getElementById('series'); // use div from dashboard.html
     container_.innerHTML = ""; // Clear previous content
 
-    console.log("Your displayShow_ is:", show_);
+    console.log("Your displayShow_ is:", show_); 
 
-    const showData_ = show_.data
+    const showData_ = show_.data // to avoid having to wright out show_.data
 
-    const title_ = showData_.name || showData_.seriesName || "Title not found";
-
-        let posterURL_= "";
-    if (showData_.image) {
-        posterURL_ = showData_.image;
-    } else if (showData_.artworks && showData_.artworks.length > 0) {
-        posterURL_ = showData_.artworks[0].image;
+    const title_ = showData_.name || showData_.seriesName || "Title not found"; //check in order if there is data in the different one. if not use "title not found"
+    
+    let posterURL_= ""; //clear content
+    if (showData_.image) { //see if the shows image is availeble
+        posterURL_ = showData_.image; //if so, use image, if not then see if:
+    } else if (showData_.artworks && showData_.artworks.length > 0) { // show artwork is not empty AND it has at least one item in it
+        posterURL_ = showData_.artworks[0].image; //if so use the first item in show artwork array
     }
 
-    const bio_ = showData_.overview || showData_.description || "No Description";
+    const bio_ = showData_.overview || showData_.description || "No Description"; //same as above just differnet names ⤴
 
-    const titleElem_ = document.createElement('h2');
-    titleElem_.textContent = title_;
-    container_.appendChild(titleElem_);
+    const titleElem_ = document.createElement('h2'); // create a header for title
+    titleElem_.textContent = title_; //the text in titleElem_ is the info gotten in title_
+    container_.appendChild(titleElem_); // make it the child of the div so it's inside
 
     if (posterURL_) {
-        const img_ = document.createElement('img');
-        img_.src = posterURL_;
-        img_.alt = title_;
-        img_.style.width = '200px';
-        container_.appendChild(img_);
+        const img_ = document.createElement('img'); //create an img for the poster
+        img_.src = posterURL_; //turn into a src so image will appear
+        img_.alt = title_; //the alternative text is the show title
+        img_.style.width = '200px'; //choose size
+        container_.appendChild(img_); // make it the child of the div so it's inside
     }
 
-    const bioElem_ = document.createElement('p');
+    const bioElem_ = document.createElement('p'); //same as above with different name ⤴
     bioElem_.textContent = bio_;
     container_.appendChild(bioElem_);
 }
-
 /*
 -------------------------------
     OLD VERSION (WITH ID SEARCH)
