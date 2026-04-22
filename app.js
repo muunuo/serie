@@ -204,7 +204,7 @@ app.post('/api/registerShowDB_', async (req, res)=> { // oppretter en serie
 
 app.get('/status_', async (req, res) => { //show all shows with a status
   try {
-    const [userShow_] = await pool.query('SELECT * FROM status_serie WHERE bruker_id = ?');
+    const [userShow_] = await pool.query('SELECT * FROM status_serie WHERE bruker_id = 1');
     res.json(userShow_);
   } catch (err) {
     console.error('Database error:', err);
@@ -213,19 +213,19 @@ app.get('/status_', async (req, res) => { //show all shows with a status
 });
 
 
-app.get('/harSett/:id', (req, res) => { 
-    const person = req.params.id;
-    const sjekkStatus = db.prepare(`
-        SELECT serieStatus.*, serie.*
-        FROM serieStatus
-        INNER JOIN serie ON serieStatus.idS = serie.idS 
-        WHERE status = 'sett'
-        AND serieStatus.idB = ?
-        `).all(person)
+// app.get('/harSett/:id', (req, res) => { 
+//     const person = req.params.id;
+//     const sjekkStatus = db.prepare(`
+//         SELECT serieStatus.*, serie.*
+//         FROM serieStatus
+//         INNER JOIN serie ON serieStatus.idS = serie.idS 
+//         WHERE status = 'sett'
+//         AND serieStatus.idB = ?
+//         `).all(person)
 
-    res.json(sjekkStatus)
+//     res.json(sjekkStatus)
 
-});//Må søke opp: http://localhost:3000/harSett/18?status=sett
+// });//Må søke opp: http://localhost:3000/harSett/18?status=sett
 
 /*
 -------------------------------

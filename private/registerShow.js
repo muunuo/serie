@@ -21,7 +21,14 @@ for every show watched create a box
 In box : picture | name | more info
 
 when on more info : register show??
+
+-------------------------------
+    REGISTER SHOWS
+-------------------------------
 */
+
+const search_ = document.getElementById('searchShow_');
+const input_ = document.getElementById('showName_');
 
 search_.addEventListener('submit', async (event) => {  //async stops search_ from running before the info arrives
     event.preventDefault(); // Prevents the page from reloading 
