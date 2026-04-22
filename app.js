@@ -193,27 +193,39 @@ if (!passwordMatch_) {
 
 app.post('/api/registerShowDB_', async (req, res)=> { // oppretter en serie
   
-  const { showId_ } = req.body;
+  const { searchName_ } = req.body;
   try {
-    const [result] = await pool.execute('INSERT INTO serie (serie_id) VALUES (?)', [showId_]);
+    const [result] = await pool.execute('INSERT INTO serie (serie_id) VALUES (?)', [searchName_]);
     res.json({ message: 'Show registered', id: result.insertId });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// app.post('/createShow', (req, res)=> { // oppretter en serie
-//     const { serieNavn, serieBio, seriePlakat } = req.body;
+app.get('/status_', async (req, res) => { //show all shows with a status
+  try {
+    const [userShow_] = await pool.query('SELECT * FROM status_serie WHERE bruker_id = ?');
+    res.json(userShow_);
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).json({ error: 'Failed to fetch data' });
+  }
+});
 
-//     try {
-//         console.log(serieNavn, serieBio, seriePlakat)
-//         const insert = db.prepare('INSERT INTO serie (navn, bio, plakat) VALUES (?, ?, ?)');
-//         insert.run(serieNavn, serieBio, seriePlakat);
-//     } catch (error) {
-//         console.log(error);
-//         res.send("serie ved opprettelse"); //sender meldingen om catch eller try blir trigget
-//     }
-// });
+
+app.get('/harSett/:id', (req, res) => { 
+    const person = req.params.id;
+    const sjekkStatus = db.prepare(`
+        SELECT serieStatus.*, serie.*
+        FROM serieStatus
+        INNER JOIN serie ON serieStatus.idS = serie.idS 
+        WHERE status = 'sett'
+        AND serieStatus.idB = ?
+        `).all(person)
+
+    res.json(sjekkStatus)
+
+});//Må søke opp: http://localhost:3000/harSett/18?status=sett
 
 /*
 -------------------------------

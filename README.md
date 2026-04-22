@@ -138,6 +138,7 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
    #### Show 📺
 - ✅ Users able to search after shows based on id
 - ✅ Users able to search after shows based on name of show
+- ✅ There is no show ID in the serchbar (having a cleaner URL) 
 
 
   #### Extra
@@ -177,7 +178,6 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
 - ⬜ Show all shows with said name when searching 
 
   #### Extra
-- ⬜ There is no show ID in the serchbar (having a cleaner URL) 
 - ⬜ Translate all code to english 
   - ✅Private
   - ✅Public
