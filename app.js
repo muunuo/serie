@@ -193,9 +193,11 @@ app.delete('/api/deleteUser_', async (req, res) => { //user able to deleate acco
   }
   const userId_ = req.session.sessionUser_.userId_;
   try {
+    await pool.execute('DELETE FROM status_serie WHERE bruker_id = ?', [userId_]);
     const [delete_] = await pool.execute('DELETE FROM bruker WHERE bruker_id = ?', [userId_]);
     req.session.destroy();
     res.json({ message: "User was successfully deleted :)" });
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({message: "deletion faild. Try again"})
