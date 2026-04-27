@@ -116,7 +116,6 @@ if (posterURL_) {
     img_.src = posterURL_;
     img_.alt = title_;
     img_.className = 'show-poster';
-    img_.style.width = '200px';
     body_.appendChild(img_);
 }
 
