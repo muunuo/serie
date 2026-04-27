@@ -132,21 +132,6 @@ app.get('/', (req, res) => {
 }); 
 
 /* ----------
-    Example route
----------- */
-
-// app.get('/user', async (req, res) => { //example of a simple route where all users are shown
-//   try {
-//     const [rows] = await pool.query('SELECT * FROM bruker'); 
-//     console.log(rows);
-//     res.json(rows);
-//   } catch (err) {
-//     console.error('Database error:', err);
-//     res.status(500).json({ error: 'Failed to fetch data from serie_database_1.serie' });
-//   }
-// }); // search http://localhost:3000/user to see the info
-
-/* ----------
     User creation and log in
 ---------- */
 app.post('/createUser_', async (req, res) => { //adds new users to database
@@ -191,6 +176,32 @@ if (!passwordMatch_) { //if they dont match, user can't log in
   return res.redirect(`/private/dashboard.html`); //send user to dashboard.html when logd in
 });
 
+app.get('/api/user_', async (req, res) => { //example of a simple route where all users are shown
+  try {
+    const [rows] = await pool.query('SELECT * FROM bruker'); 
+    console.log(rows);
+    res.json(rows);
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).json({ error: 'Failed to fetch data from serie_database_1.serie' });
+  }
+}); // search http://localhost:3000/user to see the info
+
+app.delete('/api/deleteUser_', async (req, res) => {
+  if (!req.session.sessionUser_) {
+    return res.status(401).json({ message: "Not logged in" });
+  }
+  const userId_ = req.session.sessionUser_.userId_;
+  try {
+    const [delete_] = await pool.execute('DELETE FROM bruker WHERE bruker_id = ?', [userId_]);
+    req.session.destroy();
+    res.json({ message: "User was successfully deleted :)" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message: "deletion faild. Try again"})
+  }
+});
+
 /*
 -------------------------------
     SHOWS
@@ -202,7 +213,7 @@ app.post('/api/registerShowDB_', async (req, res)=> { //registers a series to th
   const {seriesId_} = req.body; //info is gotten from the search.js file and sent here
   try {
     //sends the id gotten in serch.js to the database⤵
-    const [seriesIdRes_] = await pool.execute('INSERT INTO serie (serie_id) VALUES (?)', [seriesId_]); 
+    const [seriesIdRes_] = await pool.execute('INSERT INTO status_serie (serie_id, status) VALUES (?, ?)', [seriesId_]); 
     res.json({ message: 'Show registered', id: seriesIdRes_.insertId });
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -5,7 +5,9 @@ Table of contents:
 - nickname at the top of landing page
 */
 
-(async function () {
+const deleteButton_ = document.getElementById('deleteButton');
+
+async function user_() {
     try {
         const response_ = await fetch('/api/sessionUser');
         if (!response_.ok) throw new Error('Not logged in');
@@ -21,11 +23,33 @@ Table of contents:
         // Optionally redirect to login or show a message
         console.error(err);
     }
-})();
+
+    console.log("user nickname" + user_.nickname_)
+    
+deleteButton_.addEventListener('click', async () => {
+    if (confirm(`Are you sure you want to delete "${user_.username_}"?`)) {
+        try {
+            const answer_ = await fetch (`/api/deleteUser_`, {//retrives users
+                method: 'DELETE' // deletes users
+            });
+            if (answer_.ok) {
+                alert("user deleted");
+            } else {
+                alert("somthing went wrong. Try again later");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("somthing went wrong. Try again later");
+        }
+    }
+});
+};
+
+user_();
 
 
 // async function hentBrukerData() {
-//     const response = await fetch('/api/sessionUser');
+//     const sponse = await fetch('/api/sessionUser');
 //     if (response.ok) {
 //         const data = await response.json();
 //         const brukerDataDiv = document.getElementById('brukerData');
