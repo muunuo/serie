@@ -215,7 +215,7 @@ app.post('/api/registerShowDB_', async (req, res)=> { //registers a series to th
 -------------------------------
 */
 
-app.get('/checkSeriesStaus_', async (req, res) => { //checks show status (watching, watchd, watch) on different user accounts
+app.get('/api/checkSeriesStaus_', async (req, res) => { //checks show status (watching, watchd, watch) on different user accounts
   const userSession_ = 1; // req.session.sessionUser_.userId_; //gets id from session
     try {
     const [checkStatus_] = await pool.query( 

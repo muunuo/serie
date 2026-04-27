@@ -134,6 +134,8 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
 
    #### Website 🖥️
 - ✅ User cannot access the landing page without an account.
+- ✅ The landing page has all registerd (to user) shows
+- ✅ Username visible at the top
 
    #### Show 📺
 - ✅ Users able to search after shows based on id
@@ -155,8 +157,6 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
 - ⬜ Profile picture and bio
 
    #### Website 🖥️
-- ⬜ The landing page has all registerd shows
-- ⬜ Username visible at the top
 - ⬜ Try to break in to private without an account 
 
    #### Show 📺
