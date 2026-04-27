@@ -132,7 +132,7 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
 - ✅ User can acces a alredy exicting account
 - ✅  User has a "Home" page/ landing site that only they can access.
 - ✅ User can delete their account when they so wish. 
-   - ❌ all info from db is also deleted
+   - ✅ all info from db is also deleted
 
    #### Website 🖥️
 - ✅ User cannot access the landing page without an account.
@@ -162,9 +162,9 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
 - ⬜ Try to break in to private without an account 
 
    #### Show 📺
-- ⬜ User can register shows
-  - ◽With pictures
-  - ◽Can give shows rewiews
+- ❌ User can register shows
+  - ❌With pictures
+  - ❌Can give shows rewiews
 - ❌ User can see all registered shows on one page (Using api. Contains to many shows.)
 - ⬜ User can with recommendations:
   - ◽ Send them

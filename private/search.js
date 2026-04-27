@@ -105,17 +105,28 @@ async function displayShow_(seriesRes_) { //gets the series info from /series ap
     titleElem_.textContent = title_; //the text in titleElem_ is the info gotten in title_
     container_.appendChild(titleElem_); // make it the child of the div so it's inside
 
-    if (posterURL_) {
-        const img_ = document.createElement('img'); //create an img for the poster
-        img_.src = posterURL_; //turn into a src so image will appear
-        img_.alt = title_; //the alternative text is the show title
-        img_.style.width = '200px'; //choose size
-        container_.appendChild(img_); // make it the child of the div so it's inside
-    }
+const showCard_ = document.createElement('div');
+showCard_.className = 'show-card';
 
-    const bioElem_ = document.createElement('p'); //same as above with different name ⤴
-    bioElem_.textContent = bio_;
-    container_.appendChild(bioElem_);
+const body_ = document.createElement('div');
+body_.className = 'show-card-body';
+
+if (posterURL_) {
+    const img_ = document.createElement('img');
+    img_.src = posterURL_;
+    img_.alt = title_;
+    img_.className = 'show-poster';
+    body_.appendChild(img_);
+}
+
+const bioElem_ = document.createElement('p');
+bioElem_.textContent = bio_;
+bioElem_.className = 'show-bio';
+
+body_.appendChild(bioElem_);
+showCard_.appendChild(titleElem_);
+showCard_.appendChild(body_);
+container_.appendChild(showCard_);
 }
 /*
 -------------------------------

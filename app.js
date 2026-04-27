@@ -210,12 +210,14 @@ app.delete('/api/deleteUser_', async (req, res) => { //user able to deleate acco
 -------------------------------
 */
 
-app.post('/api/registerShowDB_', async (req, res)=> { //registers a series to the database using id
+app.post('/api/registerShowDB_', async (req, res)=> { //registers a series and status to the database using id
   
-  const {seriesId_} = req.body; //info is gotten from the search.js file and sent here
+  const {databaseShowId_, status_ } = req.body; //info is gotten from the search.js file and sent here
+  const user_id = req.session.sessionUser_.userId_; //user id from session
+
   try {
     //sends the id gotten in serch.js to the database⤵
-    const [seriesIdRes_] = await pool.execute('INSERT INTO status_serie (serie_id, status) VALUES (?, ?)', [seriesId_]); 
+    const [seriesIdRes_] = await pool.execute('INSERT INTO status_serie (status, serie_id, bruker_id) VALUES (?, ?, ?)', [status_, databaseShowId_, user_id]); 
     res.json({ message: 'Show registered', id: seriesIdRes_.insertId });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -233,11 +235,7 @@ app.get('/api/checkSeriesStaus_', async (req, res) => { //checks show status (wa
     try {
     const [checkStatus_] = await pool.query( 
       //get id from series and check up against status_series to see the status each user has given a show.⤵
-      `SELECT serie.*, status_serie.status 
-      FROM serie 
-      INNER JOIN status_serie 
-      ON serie.serie_id = status_serie.serie_id 
-      WHERE status_serie.bruker_id = ?`, 
+      `SELECT * FROM status_serie WHERE bruker_id = ?`, 
       [userSession_]); //the id is sat by the session
     res.json(checkStatus_);
   } catch (err) {

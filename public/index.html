@@ -6,9 +6,12 @@
     <title>Make account</title>
     <script src="show.js" defer></script>
     <script src="showapi.js" defer></script>
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <form method="POST" action="/createUser_">
+
+    <form id="logIn" method="POST" action="/createUser_">
+        <h3>Create Account</h3>
         <label for="username_">Username</label>
         <input placeholder="user" required type="text" name="username_" id="username_">
         <label for="password_">Password</label>
@@ -18,7 +21,8 @@
         <button type="submit">Create Account</button>
     </form>
 
-    <form method="POST" action="/login_" id="showSearch">
+    <form method="POST" action="/login_" id="logInForm">
+        <h3>Log In</h3>
         <label for="inUsername_">Username</label>
         <input placeholder="user" required type="text" name="inUsername_" id="inUsername_">
         <label for="inPassword_">Password</label>
@@ -26,6 +30,6 @@
         <button type="submit">log in</button>
     </form>
 
-    <div id="series"></div>
+    <!-- <div id="series"></div> -->
 </body>
 </html>
