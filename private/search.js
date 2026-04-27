@@ -52,8 +52,8 @@ async function getShowData_(searchName_) {
 
     const data_ = await arrayRes_.json(); //data = array of series
 
-    if (data_.data_ && data_.data_.length > 0) { //check if the search resault exist
-        const databaseShowId_ = data_.data_[0].tvdb_id; //checks if empty. Gets first resault matching user input. Gets tvdb_id from said result
+    if (data_.data && data_.data.length > 0) { //check if the search resault exist
+        const databaseShowId_ = data_.data[0].tvdb_id; //checks if empty. Gets first resault matching user input. Gets tvdb_id from said result
         const seriesRes_ = await fetch(`https://api4.thetvdb.com/v4/series/${databaseShowId_}`, { //uses tvdb_id to get more info on show
             headers: {
                 'Authorization': 'Bearer ' + token_
@@ -63,7 +63,7 @@ async function getShowData_(searchName_) {
     }
 
     // console.log("Your shows:", data); // <-- This will print the toke
-    // return data;
+    return data_;
 }
 
 /*
@@ -75,13 +75,21 @@ async function getShowData_(searchName_) {
 async function displayShow_(seriesRes_) { //gets the series info from /series api search
     const show_ = await getShowData_(seriesRes_); //wait untill said info arrives
 
+    if (!show_ || !show_.data) {
+        console.log("No show data found");
+        // Optionally, display a message to the user, e.g.:
+        // const container_ = document.getElementById('series');
+        // container_.innerHTML = "<p>No results found.</p>";
+        return;
+    }
+
     const container_ = document.getElementById('series'); // use div from dashboard.html
     container_.innerHTML = ""; // Clear previous content
 
-    console.log("Your displayShow_ is:", show_); 
+
 
     const showData_ = show_.data // to avoid having to wright out show_.data
-
+    console.log("Your displayShow_ is:", showData_); 
     const title_ = showData_.name || showData_.seriesName || "Title not found"; //check in order if there is data in the different one. if not use "title not found"
     
     let posterURL_= ""; //clear content

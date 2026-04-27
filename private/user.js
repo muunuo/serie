@@ -24,25 +24,23 @@ async function user_() {
         console.error(err);
     }
 
-    console.log("user nickname" + user_.nickname_)
-    
-deleteButton_.addEventListener('click', async () => {
-    if (confirm(`Are you sure you want to delete "${user_.username_}"?`)) {
-        try {
-            const answer_ = await fetch (`/api/deleteUser_`, {//retrives users
-                method: 'DELETE' // deletes users
-            });
-            if (answer_.ok) {
-                alert("user deleted");
-            } else {
+    deleteButton_.addEventListener('click', async () => {
+        if (confirm(`Are you sure you want to delete "${user_.username_}"?`)) {
+            try {
+                const answer_ = await fetch (`/api/deleteUser_`, {//retrives users
+                    method: 'DELETE' // deletes users
+                });
+                if (answer_.ok) {
+                    alert("user deleted");
+                } else {
+                    alert("somthing went wrong. Try again later");
+                }
+            } catch (error) {
+                console.error(error);
                 alert("somthing went wrong. Try again later");
             }
-        } catch (error) {
-            console.error(error);
-            alert("somthing went wrong. Try again later");
         }
-    }
-});
+    });
 };
 
 user_();
