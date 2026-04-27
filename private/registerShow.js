@@ -27,6 +27,7 @@ In box : picture | name | more info
 
 when on more info : register show??
 */
+
 async function statusSeries_() {
     const get_ = await fetch(`/api/checkSeriesStaus_`);
     const getSeries_ = await get_.json();

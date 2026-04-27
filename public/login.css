@@ -1,0 +1,51 @@
+#logIn {
+    margin: 2rem;
+    background-color: lightblue;
+    border-radius: 5rem;
+    border: lightblue 2rem solid;
+
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+body {
+    background-color: rgb(220, 209, 209);
+
+    display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center;     /* Vertical centering */
+  flex-direction: column;   
+}
+
+#logInForm {
+    margin: 2rem;
+    background-color: lightpink;
+    border-radius: 5rem;
+    border: lightpink 2rem solid;
+
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+button {
+    background-color: white;
+    border-radius: 0.5rem;
+    border: solid white 0.2rem;
+
+    margin: 0.5rem;
+
+}
+/* 
+#serie {
+    --min-col-size: 300px;
+    background-color: rgb(77, 181, 54);
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 
+        repeat(auto-fit, minmax(min(var(--min-col-size), 100%), 1fr));
+        
+    margin: 1rem;
+} */
+

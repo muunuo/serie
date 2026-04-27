@@ -8,23 +8,25 @@
     <script src="setStatus.js" defer></script>
     <script src="registerShow.js" defer></script>
     <script src="search.js" defer></script>
+    <link rel="stylesheet" href="dashboard.css">
     <title>Dashboard</title>
 </head>
 <body>
-    <head id="userInfo">
-        <!-- filled by user.js -->
-            Welcome, <span id="nickname"></span>!
-    </head>
-    <form  action="" id="searchShow_">
-        <input type="text" name="showName" id="showName_">
-        <button type="submit" id="submitSearch_" >Search</button>
-    </form>
 
-    <!-- <form  action="" id="searchShow_">
-        <label for="">showName2_</label>
-        <input type="text" name="showName" id="showName2_">
-        <button type="submit" id="submitSearch_" >Search</button>
-    </form> -->
+    <header id="userInfo">
+        <!-- filled by user.js -->
+            <h3>Welcome, <span id="nickname"></span>!</h3>
+                <form action="delete_">
+        <button id="deleteButton">Delete account</button>
+    </form>
+    </header>
+    <main id="searchShow_">
+        <form id="searchShow_">
+            <input type="text" name="showName" id="showName_">
+            <button type="submit" id="submitSearch_" >Search</button>
+        </form>
+        <div id="series"><!-- Gets filled by search.js --></div>
+    </main>
 
     <!-- <label for="status">Choose an option:</label>
     <select id="chooseStatus_" name="status">
@@ -33,12 +35,6 @@
         <option value="will">watch</option>
     </select> -->
     <!-- <div id="search_"> </div> -->
-    <p>beskyttet</p>
-    <div id="series"><!-- Gets filled by search.js --></div>
-    <div id="statusSeries"><p>test</p></div>
-
-    <form action="delete_">
-        <button id="deleteButton">delete</button>
-    </form>
+    <div id="statusSeries"><p></p></div>
 </body>
 </html>

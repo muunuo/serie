@@ -1,0 +1,105 @@
+#userInfo {grid-area: userInfo;}
+#searchShow_ {grid-area: searchShow_;}
+#harSett {grid-area: harSett;}
+#vilSe {grid-area: vilSe;}
+#serPa {grid-area: serPa;}
+#anbefalt {grid-area: anbefalt;}
+#venn {grid-area: venn;}
+#anbefalAndre {grid-area: anbefalAndre;}
+
+
+#grid {
+    width: auto;
+    max-height: 30rem;
+    display: grid;
+    gap: 0;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas: 
+    "userInfo userInfo userInfo userInfo"
+    "searchShow_ searchShow_ searchShow_  venn"
+    "harSett harSett harSett  venn"
+    "vilSe vilSe vilSe  venn"
+    "serPa serPa serPa  venn"
+    "anbefalt anbefalt anbefalt  venn"
+    "anbefalAndre anbefalAndre anbefalAndre  venn";
+}
+
+header {
+    background-color: #acc0d8;
+    border: 1rem solid #acc0d8 ; 
+
+}
+
+#series {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    height: 400px;
+    background-color: #f2f2f2;
+    border-radius: 1rem;
+}
+
+.show-card {
+    background: #f2f2f2;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.show-card-body {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.show-poster {
+    width: 200px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border-radius: 0.5rem;
+}
+
+.show-bio {
+    flex: 1;
+    max-height: 400px;
+    overflow: hidden;
+    line-height: 1.4;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 12;
+    overflow: hidden;
+}
+
+.searchShow_Konteiner:hover {
+    background-color: rgb(146, 146, 146);
+    cursor: pointer;
+}
+/* 
+kode noe js så når du trykker på en bnestemt
+boks så får du infoen for den bestemte searchShow_n. 
+*/
+
+.searchShow_Konteiner {
+    float: left;
+
+    background-color: rgb(226, 225, 228);
+    width: 10rem;
+    height: 25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0.5rem;
+    border-radius: 1rem;
+}
+
+button {
+    background-color: white;
+    border-radius: 0.5rem;
+    border: solid rgb(183, 183, 183) 0.2rem;
+
+    margin: 0.5rem;
+
+}
