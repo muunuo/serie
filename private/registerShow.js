@@ -52,7 +52,7 @@ async function statusSeries_() {
         // container_.innerHTML = ""; // Clear previous content
 
         const title_ = allData_.name || allData_.seriesName || "Title not found"; //check in order if there is data in the different one. if not use "title not found"
-        console.log(allData_.name);
+        // console.log(allData_.name);
 
         let posterURL_= ""; //clear content
         if (allData_.image) { //see if the shows image is availeble
@@ -67,17 +67,30 @@ async function statusSeries_() {
         titleElem_.textContent = title_; //the text in titleElem_ is the info gotten in title_
         container_.appendChild(titleElem_); // make it the child of the div so it's inside
 
+        const showCard_ = document.createElement('div');
+        showCard_.className = 'show-card';
+
+        const body_ = document.createElement('div');
+        body_.className = 'show-card-body';
+
         if (posterURL_) {
             const img_ = document.createElement('img'); //create an img for the poster
             img_.src = posterURL_; //turn into a src so image will appear
             img_.alt = title_; //the alternative text is the show title
-            img_.style.width = '200px'; //choose size
+            // img_.style.width = '200px'; //choose size
+            img_.className = 'show-poster';
             container_.appendChild(img_); // make it the child of the div so it's inside
         }
 
         const bioElem_ = document.createElement('p'); //same as above with different name ⤴
         bioElem_.textContent = bio_;
-        container_.appendChild(bioElem_);
+        bioElem_.className = 'show-bio';
+        // container_.appendChild(bioElem_);
+
+        body_.appendChild(bioElem_);
+        showCard_.appendChild(titleElem_);
+        showCard_.appendChild(body_);
+        container_.appendChild(showCard_)
     }
 
 };

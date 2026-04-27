@@ -23,12 +23,12 @@ If you see any varibles missing a underscore, feel free to fix them.
 This might seem silly or stupid, but i find it helpfull, and therfor ask any contributers to also stick to said standerd.
 
 ## Development Status 
-The project is in active development, but do to this being version 2.0 it has not gotten far into development, still being in the planing, and documenting phase. Coding will soon begin.
+The project is in active development, and now has many core functinalitys active, including users registering statuses on shows, creating, accessing, and deleting accounts, being able to search up shows etc. There are still missing functunalitys and the design (CSS) is currently lacking, but progress is being made.
 
 **Current Progress:**
-- Core functionality: 10% ✅
+- Core functionality: 40% ✅
 - Security features: 20% 🔒
-- UI/UX polish: 0% 🎨
+- UI/UX polish: 15% 🎨
 
 ## Design and Planing 🎨 
 The hole design and plaing is based on the original 1.0 website. If you wish to view it then you can fined it under the 'Show' reposetory.
@@ -143,6 +143,10 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
 - ✅ Users able to search after shows based on id
 - ✅ Users able to search after shows based on name of show
 - ✅ There is no show ID in the serchbar (having a cleaner URL) 
+- ✅ User can have a list for:
+  - ✅Shows they have watched
+  - ✅Shows they are watching
+  - ✅Shows they want to watch 
 
 
   #### Extra
@@ -172,10 +176,6 @@ This time I am coding with Maria.db for the first time, insted of using SQLite. 
   - ◽ Delete them
   - ◽Send them based on names and not ID
   - ◽delet the recommondation more then once
-- ⬜ User can have a list for:
-  - ◽Shows they have watched
-  - ◽Shows they are watching
-  - ◽Shows they want to watch 
 - ⬜ Get more info on a show by clicking on poster
 - ⬜ Show all shows with said name when searching 
 
@@ -224,7 +224,7 @@ I am curently a student in norway studying information technology (informasjonst
 
 -----
 ***Last updated***
-- April 2nd 2026
+- April 27th 2026
 
 # Sources
 
