@@ -187,7 +187,7 @@ app.get('/api/user_', async (req, res) => { //example of a simple route where al
   }
 }); // search http://localhost:3000/user to see the info
 
-app.delete('/api/deleteUser_', async (req, res) => {
+app.delete('/api/deleteUser_', async (req, res) => { //user able to deleate account
   if (!req.session.sessionUser_) {
     return res.status(401).json({ message: "Not logged in" });
   }
