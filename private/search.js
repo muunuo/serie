@@ -77,16 +77,11 @@ async function displayShow_(seriesRes_) { //gets the series info from /series ap
 
     if (!show_ || !show_.data) {
         console.log("No show data found");
-        // Optionally, display a message to the user, e.g.:
-        // const container_ = document.getElementById('series');
-        // container_.innerHTML = "<p>No results found.</p>";
         return;
     }
 
     const container_ = document.getElementById('series'); // use div from dashboard.html
     container_.innerHTML = ""; // Clear previous content
-
-
 
     const showData_ = show_.data // to avoid having to wright out show_.data
     console.log("Your displayShow_ is:", showData_); 
@@ -105,28 +100,28 @@ async function displayShow_(seriesRes_) { //gets the series info from /series ap
     titleElem_.textContent = title_; //the text in titleElem_ is the info gotten in title_
     container_.appendChild(titleElem_); // make it the child of the div so it's inside
 
-const showCard_ = document.createElement('div');
-showCard_.className = 'show-card';
+    const showCard_ = document.createElement('div');
+    showCard_.className = 'show-card';
 
-const body_ = document.createElement('div');
-body_.className = 'show-card-body';
+    const body_ = document.createElement('div');
+    body_.className = 'show-card-body';
 
-if (posterURL_) {
-    const img_ = document.createElement('img');
-    img_.src = posterURL_;
-    img_.alt = title_;
-    img_.className = 'show-poster';
-    body_.appendChild(img_);
-}
+    if (posterURL_) {
+        const img_ = document.createElement('img');
+        img_.src = posterURL_;
+        img_.alt = title_;
+        img_.className = 'show-poster';
+        body_.appendChild(img_);
+    }
 
-const bioElem_ = document.createElement('p');
-bioElem_.textContent = bio_;
-bioElem_.className = 'show-bio';
+    const bioElem_ = document.createElement('p');
+    bioElem_.textContent = bio_;
+    bioElem_.className = 'show-bio';
 
-body_.appendChild(bioElem_);
-showCard_.appendChild(titleElem_);
-showCard_.appendChild(body_);
-container_.appendChild(showCard_);
+    body_.appendChild(bioElem_);
+    showCard_.appendChild(titleElem_);
+    showCard_.appendChild(body_);
+    container_.appendChild(showCard_);
 }
 /*
 -------------------------------
