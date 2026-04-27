@@ -1,17 +1,6 @@
 /* 
 All code that allows users to set a status on a show
 
-User uses form to say what show they are registering
-User uses a dropdown to choose watching, watched, or watch
-User submits form
-Form is sent to this document
-Info from form is turnd into values
-Values are sent through the search api and given an id
-Id is sent to app.js file
-value is sent to app.js
-Value and id is put into database 
-User id is put into database (using session id)
-
 Later:
 Each show can have their status changed by user.
 
